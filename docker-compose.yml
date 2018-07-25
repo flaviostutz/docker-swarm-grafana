@@ -1,0 +1,13 @@
+version: '3.5'
+
+services:
+
+  grafana:
+    build: .
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana:/data
+
+volumes:
+  grafana:
