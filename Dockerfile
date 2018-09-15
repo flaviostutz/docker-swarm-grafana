@@ -1,4 +1,4 @@
-FROM flaviostutz/grafana:5.2.2.1
+FROM flaviostutz/grafana:5.2.2.3
 
 ADD datasource-prometheus.yml /provisioning/datasources/
 ADD dashboards.yml /provisioning/dashboards/
