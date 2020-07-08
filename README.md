@@ -7,14 +7,20 @@ This is an extension of the great monitoring work on Swarm Clusters of github.co
 docker run -d -p 3000:3000 flaviostutz/docker-swarm-grafana:5.1.3
 
 ## Pre-installed visualization panels
-  * grafana-worldmap-panel
-  * grafana-piechart-panel
-  * petrslavotinek-carpetplot-panel
-  * neocat-cal-heatmap-panel
-  * briangann-gauge-panel
-  * jdbranham-diagram-panel
-  * citilogics-geoloop-panel
-  * mtanda-histogram-panel
-  * mtanda-heatmap-epoch-panel
-  * natel-plotly-panel 
-  * bessler-pictureit-panel
+
+* grafana-worldmap-panel
+* grafana-piechart-panel
+* petrslavotinek-carpetplot-panel
+* neocat-cal-heatmap-panel
+* briangann-gauge-panel
+* jdbranham-diagram-panel
+* citilogics-geoloop-panel
+* mtanda-histogram-panel
+* mtanda-heatmap-epoch-panel
+* natel-plotly-panel
+* bessler-pictureit-panel
+
+## Sample dashboard
+
+<img src="dashboard1.png" width="500"></img>
+
