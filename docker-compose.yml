@@ -4,6 +4,7 @@ services:
 
   grafana:
     build: .
+    image: flaviostutz/docker-swarm-grafana:7.1.3.0
     ports:
       - 3000:3000
     volumes:
