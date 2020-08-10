@@ -1,10 +1,12 @@
 # docker-swarm-grafana
+
 Grafana with custom panel plugins and Swarm Cluster monitoring panels based on Prometheus.
 
 This is an extension of the great monitoring work on Swarm Clusters of github.com/stefanprodan
 
 ## Usage
-docker run -d -p 3000:3000 flaviostutz/docker-swarm-grafana:5.1.3
+
+```docker run -d -p 3000:3000 flaviostutz/docker-swarm-grafana```
 
 ## Pre-installed visualization panels
 
