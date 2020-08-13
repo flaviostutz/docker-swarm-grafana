@@ -17,7 +17,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1520585531240,
+  "iteration": 1597293321401,
   "links": [],
   "panels": [
     {
@@ -31,6 +31,12 @@
       ],
       "datasource": "Prometheus",
       "decimals": 1,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "s",
       "gauge": {
         "maxValue": 100,
@@ -80,11 +86,12 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "",
+      "tableColumn": "{node_name=\"server2\"}",
       "targets": [
         {
-          "expr": "topk(1, sum((node_time - node_boot_time) * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"}) by (node_name))",
+          "expr": "topk(1, sum((node_time_seconds - node_boot_time_seconds) * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"}) by (node_name))",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "",
           "refId": "A",
@@ -117,6 +124,12 @@
       ],
       "datasource": null,
       "decimals": 0,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -200,6 +213,12 @@
       ],
       "datasource": null,
       "decimals": 0,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "short",
       "gauge": {
         "maxValue": 100,
@@ -252,8 +271,9 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "count(node_cpu{mode=\"idle\"} * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"})",
+          "expr": "count(node_cpu_seconds_total{mode=\"idle\"} * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"})",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "",
           "refId": "A",
@@ -286,6 +306,12 @@
       ],
       "datasource": null,
       "decimals": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "percent",
       "gauge": {
         "maxValue": 100,
@@ -338,8 +364,9 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(irate(node_cpu{mode=\"idle\"}[$interval]) * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"}) * 100 / count(node_cpu{mode=\"user\"} * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"}) ",
+          "expr": "sum(irate(node_cpu_seconds_total{mode=\"idle\"}[$interval]) * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"}) * 100 / count(node_cpu_seconds_total{mode=\"user\"} * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"}) ",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "",
           "refId": "A",
@@ -368,13 +395,21 @@
       "dashes": false,
       "datasource": null,
       "decimals": 2,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 12,
         "x": 0,
         "y": 4
       },
+      "hiddenSeries": false,
       "id": 13,
       "legend": {
         "alignAsTable": true,
@@ -394,6 +429,7 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
+      "pluginVersion": "7.1.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -405,6 +441,7 @@
         {
           "expr": "node_load5 * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"}",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "load5 {{node_name}}",
           "refId": "A",
@@ -413,6 +450,7 @@
       ],
       "thresholds": [],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
       "title": "System Load by Node",
       "tooltip": {
@@ -445,7 +483,11 @@
           "min": null,
           "show": true
         }
-      ]
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "aliasColors": {},
@@ -454,13 +496,21 @@
       "dashes": false,
       "datasource": null,
       "decimals": 2,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 12,
         "x": 12,
         "y": 4
       },
+      "hiddenSeries": false,
       "id": 14,
       "legend": {
         "alignAsTable": true,
@@ -480,6 +530,7 @@
       "links": [],
       "nullPointMode": "null as zero",
       "percentage": false,
+      "pluginVersion": "7.1.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -489,8 +540,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "100 - (avg(irate(node_cpu{mode=\"idle\"}[$interval])  * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"} * 100) by (node_name))",
+          "expr": "100 - (avg(irate(node_cpu_seconds_total{mode=\"idle\"}[$interval])  * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"} * 100) by (node_name))",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{node_name}}",
           "refId": "A",
@@ -499,6 +551,7 @@
       ],
       "thresholds": [],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
       "title": "CPU Usage by Node",
       "tooltip": {
@@ -531,7 +584,11 @@
           "min": null,
           "show": true
         }
-      ]
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "cacheTimeout": null,
@@ -544,6 +601,12 @@
       ],
       "datasource": null,
       "decimals": 1,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "decbytes",
       "gauge": {
         "maxValue": 100,
@@ -596,8 +659,9 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(node_memory_MemTotal * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"})",
+          "expr": "sum(node_memory_MemTotal_bytes * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"})",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "",
           "refId": "A",
@@ -629,6 +693,12 @@
         "rgba(50, 172, 45, 0.97)"
       ],
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "percent",
       "gauge": {
         "maxValue": 100,
@@ -680,8 +750,9 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum((node_memory_MemAvailable / node_memory_MemTotal) * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"} * 100) / count(node_meta * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"})",
+          "expr": "sum((node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"} * 100) / count(node_meta * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"})",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "",
           "refId": "A",
@@ -712,6 +783,12 @@
       ],
       "datasource": null,
       "decimals": 1,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "decbytes",
       "gauge": {
         "maxValue": 100,
@@ -764,8 +841,9 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(node_filesystem_size{mountpoint=\"/\"} * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"})",
+          "expr": "sum(node_filesystem_size_bytes{mountpoint=\"/rootfs\"} * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"})",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "",
           "refId": "A",
@@ -797,6 +875,12 @@
         "rgba(50, 172, 45, 0.97)"
       ],
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "percent",
       "gauge": {
         "maxValue": 100,
@@ -848,8 +932,9 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum((node_filesystem_free{mountpoint=\"/\"} / node_filesystem_size{mountpoint=\"/\"}) * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"} * 100) / count(node_meta * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"})",
+          "expr": "sum((node_filesystem_free_bytes{mountpoint=\"/rootfs\"} / node_filesystem_size_bytes{mountpoint=\"/rootfs\"}) * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"} * 100) / count(node_meta * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"})",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "",
           "refId": "A",
@@ -875,13 +960,21 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 24,
         "x": 0,
         "y": 15
       },
+      "hiddenSeries": false,
       "id": 15,
       "legend": {
         "alignAsTable": true,
@@ -899,6 +992,7 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
+      "pluginVersion": "7.1.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -908,16 +1002,18 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum((node_memory_MemTotal - node_memory_MemFree - node_memory_Cached - node_memory_Buffers - node_memory_Slab) * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"}) by (node_name)",
+          "expr": "sum((node_memory_MemTotal_bytes - node_memory_MemFree_bytes - node_memory_Cached_bytes - node_memory_Buffers_bytes - node_memory_Slab_bytes) * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"}) by (node_name)",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Used {{node_name}}",
           "refId": "A",
           "step": 2
         },
         {
-          "expr": "sum(node_memory_Cached * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"}) by (node_name)",
+          "expr": "sum(node_memory_Cached_bytes * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"}) by (node_name)",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Cached {{node_name}}",
           "refId": "B",
@@ -926,6 +1022,7 @@
       ],
       "thresholds": [],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
       "title": "Memory usage by Node",
       "tooltip": {
@@ -958,7 +1055,11 @@
           "min": null,
           "show": true
         }
-      ]
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "aliasColors": {},
@@ -967,13 +1068,21 @@
       "dashes": false,
       "datasource": null,
       "decimals": 2,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 24,
         "x": 0,
         "y": 22
       },
+      "hiddenSeries": false,
       "id": 16,
       "legend": {
         "alignAsTable": true,
@@ -991,6 +1100,7 @@
       "links": [],
       "nullPointMode": "null as zero",
       "percentage": false,
+      "pluginVersion": "7.1.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1000,16 +1110,18 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(irate(node_disk_bytes_read[$interval]) * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"}) by (node_name)",
+          "expr": "sum(irate(node_disk_read_bytes_total[$interval]) * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"}) by (node_name)",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Read {{node_name}}",
           "refId": "A",
           "step": 2
         },
         {
-          "expr": "sum(irate(node_disk_bytes_written[$interval]) * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"}) by (node_name)",
+          "expr": "sum(irate(node_disk_written_bytes_total[$interval]) * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"}) by (node_name)",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Written {{node_name}}",
           "refId": "B",
@@ -1018,6 +1130,7 @@
       ],
       "thresholds": [],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
       "title": "Disk I/O by Node",
       "tooltip": {
@@ -1050,7 +1163,11 @@
           "min": null,
           "show": true
         }
-      ]
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "aliasColors": {},
@@ -1059,13 +1176,21 @@
       "dashes": false,
       "datasource": null,
       "decimals": 2,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 12,
         "x": 0,
         "y": 29
       },
+      "hiddenSeries": false,
       "id": 18,
       "legend": {
         "alignAsTable": true,
@@ -1083,6 +1208,7 @@
       "links": [],
       "nullPointMode": "null as zero",
       "percentage": false,
+      "pluginVersion": "7.1.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1092,8 +1218,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(irate(node_disk_reads_completed[$interval]) * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"}) by (node_name)",
+          "expr": "sum(irate(node_disk_reads_completed_total[$interval]) * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"}) by (node_name)",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "Reads {{node_name}}",
           "refId": "A",
@@ -1110,6 +1237,7 @@
       ],
       "thresholds": [],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
       "title": "IOPS by Node",
       "tooltip": {
@@ -1142,7 +1270,11 @@
           "min": null,
           "show": true
         }
-      ]
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "aliasColors": {},
@@ -1151,13 +1283,21 @@
       "dashes": false,
       "datasource": null,
       "decimals": 2,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 12,
         "x": 12,
         "y": 29
       },
+      "hiddenSeries": false,
       "id": 19,
       "legend": {
         "alignAsTable": true,
@@ -1177,6 +1317,7 @@
       "links": [],
       "nullPointMode": "null as zero",
       "percentage": false,
+      "pluginVersion": "7.1.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1186,8 +1327,9 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(avg(irate(node_cpu{mode=\"iowait\"}[$interval])  * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"} * 100) by (node_name))",
+          "expr": "(avg(irate(node_cpu_seconds_total{mode=\"iowait\"}[$interval])  * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"} * 100) by (node_name))",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{node_name}}",
           "refId": "A",
@@ -1196,6 +1338,7 @@
       ],
       "thresholds": [],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
       "title": "CPU IO Wait by Node",
       "tooltip": {
@@ -1228,7 +1371,11 @@
           "min": null,
           "show": true
         }
-      ]
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "aliasColors": {},
@@ -1237,13 +1384,21 @@
       "dashes": false,
       "datasource": null,
       "decimals": 0,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 3,
+      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 18,
         "x": 0,
         "y": 36
       },
+      "hiddenSeries": false,
       "id": 12,
       "legend": {
         "alignAsTable": true,
@@ -1265,6 +1420,7 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
+      "pluginVersion": "7.1.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1284,6 +1440,7 @@
       ],
       "thresholds": [],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
       "title": "Running Containers by Service",
       "tooltip": {
@@ -1316,7 +1473,11 @@
           "min": null,
           "show": true
         }
-      ]
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "cacheTimeout": null,
@@ -1328,6 +1489,12 @@
         "rgba(50, 172, 45, 0.97)"
       ],
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -1405,13 +1572,21 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 24,
         "x": 0,
         "y": 43
       },
+      "hiddenSeries": false,
       "id": 17,
       "legend": {
         "alignAsTable": true,
@@ -1429,6 +1604,7 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
+      "pluginVersion": "7.1.3",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1458,6 +1634,7 @@
       ],
       "thresholds": [],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
       "title": "Containers Network Traffic by Node",
       "tooltip": {
@@ -1490,11 +1667,21 @@
           "min": null,
           "show": true
         }
-      ]
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "columns": [],
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fontSize": "100%",
       "gridPos": {
         "h": 7,
@@ -1515,12 +1702,14 @@
       "styles": [
         {
           "alias": "Time",
+          "align": "auto",
           "dateFormat": "YYYY-MM-DD HH:mm:ss",
           "pattern": "Time",
           "type": "date"
         },
         {
           "alias": "",
+          "align": "auto",
           "colorMode": null,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
@@ -1545,12 +1734,12 @@
       ],
       "timeFrom": "1s",
       "title": "Cluster members",
-      "transform": "timeseries_to_rows",
-      "type": "table"
+      "transform": "table",
+      "type": "table-old"
     }
   ],
   "refresh": "30s",
-  "schemaVersion": 16,
+  "schemaVersion": 26,
   "style": "dark",
   "tags": [
     "swarmprom"
@@ -1560,10 +1749,12 @@
       {
         "allValue": ".+",
         "current": {
+          "selected": false,
           "text": "All",
           "value": "$__all"
         },
         "datasource": "Prometheus",
+        "definition": "",
         "hide": 0,
         "includeAll": true,
         "label": "Swarm Node",
@@ -1573,11 +1764,14 @@
         "query": "node_meta",
         "refresh": 1,
         "regex": "/node_id=\"([^\"]+)\"/",
+        "skipUrlSync": false,
         "sort": 0,
         "tagValuesQuery": "label_values({node_id=\"$tag\"},node_name)",
         "tags": [
-          "ofdocker",
-          "ofmon"
+          {
+            "selected": false,
+            "text": "server2"
+          }
         ],
         "tagsQuery": "label_values(node_meta, node_name)",
         "type": "query",
@@ -1588,6 +1782,7 @@
         "auto_count": 30,
         "auto_min": "30s",
         "current": {
+          "selected": false,
           "text": "auto",
           "value": "$__auto_interval_interval"
         },
@@ -1653,6 +1848,7 @@
         ],
         "query": "1m,10m,30m,1h,6h,12h,1d,7d,14d,30d",
         "refresh": 2,
+        "skipUrlSync": false,
         "type": "interval"
       }
     ]
@@ -1689,5 +1885,5 @@
   "timezone": "",
   "title": "Docker Swarm Nodes",
   "uid": "BPlb-Sgik",
-  "version": 2
+  "version": 1
 }
