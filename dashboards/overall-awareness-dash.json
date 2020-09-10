@@ -57,9 +57,6 @@
       },
       "id": 13,
       "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -68,13 +65,14 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
       },
       "pluginVersion": "7.1.5",
       "repeatDirection": "h",
       "targets": [
         {
-          "expr": "(sum(rate(node_cpu_seconds_total{mode=\"idle\"}[1m])) by (instance)) / count (node_cpu_seconds_total{mode=\"idle\"}) by (instance)",
+          "expr": "1-(sum(rate(node_cpu_seconds_total{mode=\"idle\"}[1m])) by (instance)) / count (node_cpu_seconds_total{mode=\"idle\"}) by (instance)",
           "hide": false,
           "interval": "",
           "legendFormat": "{{instance}}",
@@ -91,7 +89,7 @@
       "timeFrom": null,
       "timeShift": null,
       "title": "Node CPU Usage",
-      "type": "stat"
+      "type": "gauge"
     },
     {
       "datasource": null,
@@ -932,5 +930,5 @@
   "timezone": "",
   "title": "Overall Awareness",
   "uid": "Y9Y369DGz",
-  "version": 32
+  "version": 34
 }
