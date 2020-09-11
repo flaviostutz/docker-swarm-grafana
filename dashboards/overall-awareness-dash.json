@@ -19,292 +19,6 @@
   "links": [],
   "panels": [
     {
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null
-          },
-          "decimals": 0,
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": 0.8
-              },
-              {
-                "color": "red",
-                "value": 0.9
-              }
-            ]
-          },
-          "unit": "percentunit"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 12,
-        "x": 0,
-        "y": 0
-      },
-      "id": 13,
-      "options": {
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
-      "pluginVersion": "7.1.5",
-      "repeatDirection": "h",
-      "targets": [
-        {
-          "expr": "1-(sum(rate(node_cpu_seconds_total{mode=\"idle\"}[1m])) by (instance)) / count (node_cpu_seconds_total{mode=\"idle\"}) by (instance)",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "{{instance}}",
-          "refId": "B"
-        },
-        {
-          "expr": "",
-          "hide": true,
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Node CPU Usage",
-      "type": "gauge"
-    },
-    {
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 1
-              },
-              {
-                "color": "red",
-                "value": 5
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 12,
-        "x": 12,
-        "y": 0
-      },
-      "id": 15,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "7.1.5",
-      "targets": [
-        {
-          "expr": "sum(rate(node_network_transmit_drop_total[3m])) by (instance) + sum(rate(node_network_receive_drop_total[3m])) by (instance)",
-          "interval": "",
-          "legendFormat": "{{instance}}",
-          "refId": "A"
-        },
-        {
-          "expr": "sum(rate(node_network_transmit_err_total[3m])) by (instance) + sum(rate(node_network_receive_err_total[3m])) by (instance)",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "{{instance}} err",
-          "refId": "B"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Node Network Drops",
-      "type": "stat"
-    },
-    {
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null
-          },
-          "decimals": 0,
-          "mappings": [],
-          "max": 1,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 0.75
-              },
-              {
-                "color": "red",
-                "value": 0.9
-              }
-            ]
-          },
-          "unit": "percentunit"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 12,
-        "x": 0,
-        "y": 4
-      },
-      "id": 2,
-      "options": {
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
-      "pluginVersion": "7.1.5",
-      "repeat": "node_id",
-      "repeatDirection": "h",
-      "scopedVars": {
-        "node_id": {
-          "selected": true,
-          "text": "brvp6j1yod28u6z7k2c8dqlhk",
-          "value": "brvp6j1yod28u6z7k2c8dqlhk"
-        }
-      },
-      "targets": [
-        {
-          "expr": "sum(((node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes) * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"} * 100) / count(node_meta * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"})",
-          "format": "table",
-          "hide": true,
-          "instant": false,
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        },
-        {
-          "expr": "((node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes)/node_memory_MemTotal_bytes)",
-          "interval": "",
-          "legendFormat": "{{instance}}",
-          "refId": "B"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Node RAM Usage",
-      "type": "gauge"
-    },
-    {
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "decimals": 0,
-          "mappings": [],
-          "max": 1,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 0.75
-              },
-              {
-                "color": "red",
-                "value": 0.9
-              }
-            ]
-          },
-          "unit": "percentunit"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 12,
-        "x": 12,
-        "y": 4
-      },
-      "id": 16,
-      "options": {
-        "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
-      "pluginVersion": "7.1.5",
-      "targets": [
-        {
-          "expr": "topk(3, (1-(node_filesystem_avail_bytes{fstype=\"xfs\"}/node_filesystem_size_bytes{fstype=\"xfs\"})))",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "{{mountpoint}}",
-          "refId": "B"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Top Volume Storage Usage",
-      "type": "gauge"
-    },
-    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -322,7 +36,7 @@
         "h": 4,
         "w": 6,
         "x": 0,
-        "y": 8
+        "y": 0
       },
       "hiddenSeries": false,
       "id": 8,
@@ -423,7 +137,7 @@
         "h": 4,
         "w": 6,
         "x": 6,
-        "y": 8
+        "y": 0
       },
       "hiddenSeries": false,
       "id": 4,
@@ -501,6 +215,210 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 15,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.5",
+      "targets": [
+        {
+          "expr": "sum(rate(node_network_transmit_drop_total[3m])) by (instance) + sum(rate(node_network_receive_drop_total[3m])) by (instance)",
+          "interval": "",
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(rate(node_network_transmit_err_total[3m])) by (instance) + sum(rate(node_network_receive_err_total[3m])) by (instance)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{instance}} err",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Node Network Drops",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "decimals": 0,
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 0.8
+              },
+              {
+                "color": "red",
+                "value": 0.9
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 0,
+        "y": 4
+      },
+      "id": 13,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.1.5",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "expr": "1-(sum(rate(node_cpu_seconds_total{mode=\"idle\"}[1m])) by (instance)) / count (node_cpu_seconds_total{mode=\"idle\"}) by (instance)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{instance}}",
+          "refId": "B"
+        },
+        {
+          "expr": "",
+          "hide": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Node CPU Usage",
+      "type": "gauge"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "decimals": 0,
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0.75
+              },
+              {
+                "color": "red",
+                "value": 0.9
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 12,
+        "x": 12,
+        "y": 4
+      },
+      "id": 16,
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.1.5",
+      "targets": [
+        {
+          "expr": "topk(3, (1-(node_filesystem_avail_bytes{fstype=\"xfs\"}/node_filesystem_size_bytes{fstype=\"xfs\"})))",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{mountpoint}}",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Top Volume Storage Usage",
+      "type": "gauge"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
           "custom": {
             "align": null
           },
@@ -566,8 +484,8 @@
         ]
       },
       "gridPos": {
-        "h": 4,
-        "w": 12,
+        "h": 6,
+        "w": 6,
         "x": 12,
         "y": 8
       },
@@ -601,9 +519,10 @@
               "container_label_com_docker_stack_namespace": true,
               "container_label_com_docker_swarm_node_id": true,
               "container_label_com_docker_swarm_service_id": true,
-              "container_label_com_docker_swarm_service_name": false,
+              "container_label_com_docker_swarm_service_name": true,
               "container_label_com_docker_swarm_task_id": true,
               "container_label_com_docker_swarm_task_name": true,
+              "container_label_maintainer": true,
               "id": true,
               "image": false,
               "instance": true,
@@ -661,6 +580,270 @@
           {
             "matcher": {
               "id": "byName",
+              "options": "container_label_com_docker_swarm_task_name"
+            },
+            "properties": []
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 165
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 275
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Service"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 208
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 18,
+        "y": 8
+      },
+      "id": 18,
+      "options": {
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "7.1.5",
+      "targets": [
+        {
+          "expr": "container_last_seen<(time()-30)",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Removals (30m)",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "Value": true,
+              "__name__": true,
+              "container_label_com_docker_compose_config_hash": true,
+              "container_label_com_docker_compose_container_number": true,
+              "container_label_com_docker_compose_oneoff": true,
+              "container_label_com_docker_compose_project": true,
+              "container_label_com_docker_compose_service": true,
+              "container_label_com_docker_compose_version": true,
+              "container_label_com_docker_stack_namespace": true,
+              "container_label_com_docker_swarm_node_id": true,
+              "container_label_com_docker_swarm_service_id": true,
+              "container_label_com_docker_swarm_service_name": true,
+              "container_label_com_docker_swarm_task_id": true,
+              "container_label_com_docker_swarm_task_name": true,
+              "container_label_com_gitlab_gitlab_runner_job_before_sha": true,
+              "container_label_com_gitlab_gitlab_runner_job_id": true,
+              "container_label_com_gitlab_gitlab_runner_job_ref": true,
+              "container_label_com_gitlab_gitlab_runner_job_sha": true,
+              "container_label_com_gitlab_gitlab_runner_pipeline_id": true,
+              "container_label_com_gitlab_gitlab_runner_project_id": true,
+              "container_label_com_gitlab_gitlab_runner_runner_id": true,
+              "container_label_com_gitlab_gitlab_runner_runner_local_id": true,
+              "container_label_com_gitlab_gitlab_runner_type": true,
+              "container_label_maintainer": true,
+              "id": true,
+              "image": false,
+              "instance": true,
+              "job": true
+            },
+            "indexByName": {
+              "Time": 0,
+              "Value": 20,
+              "__name__": 1,
+              "container_label_com_docker_compose_config_hash": 2,
+              "container_label_com_docker_compose_container_number": 3,
+              "container_label_com_docker_compose_oneoff": 4,
+              "container_label_com_docker_compose_project": 5,
+              "container_label_com_docker_compose_service": 6,
+              "container_label_com_docker_compose_version": 7,
+              "container_label_com_docker_stack_namespace": 8,
+              "container_label_com_docker_swarm_node_id": 9,
+              "container_label_com_docker_swarm_service_id": 10,
+              "container_label_com_docker_swarm_service_name": 19,
+              "container_label_com_docker_swarm_task_id": 11,
+              "container_label_com_docker_swarm_task_name": 12,
+              "container_label_maintainer": 13,
+              "id": 14,
+              "image": 15,
+              "instance": 16,
+              "job": 17,
+              "name": 18
+            },
+            "renameByName": {}
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "indexByName": {
+              "Time": 0,
+              "container_label_com_docker_swarm_service_name": 1,
+              "image": 3,
+              "name": 2
+            },
+            "renameByName": {
+              "container_label_com_docker_swarm_service_name": "Service",
+              "image": "Image",
+              "name": "Name"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "decimals": 0,
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0.75
+              },
+              {
+                "color": "red",
+                "value": 0.9
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 0,
+        "y": 9
+      },
+      "id": 2,
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.1.5",
+      "repeat": "node_id",
+      "repeatDirection": "h",
+      "scopedVars": {
+        "node_id": {
+          "selected": true,
+          "text": "brvp6j1yod28u6z7k2c8dqlhk",
+          "value": "brvp6j1yod28u6z7k2c8dqlhk"
+        }
+      },
+      "targets": [
+        {
+          "expr": "sum(((node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes) * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"} * 100) / count(node_meta * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"})",
+          "format": "table",
+          "hide": true,
+          "instant": false,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        },
+        {
+          "expr": "((node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes)/node_memory_MemTotal_bytes)",
+          "interval": "",
+          "legendFormat": "{{instance}}",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Node RAM Usage",
+      "type": "gauge"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 0.85
+              },
+              {
+                "color": "red",
+                "value": 0.9
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
               "options": "name"
             },
             "properties": [
@@ -669,18 +852,30 @@
                 "value": 412
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "__name__"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 316
+              }
+            ]
           }
         ]
       },
       "gridPos": {
-        "h": 4,
+        "h": 6,
         "w": 12,
         "x": 0,
-        "y": 12
+        "y": 14
       },
       "id": 12,
       "options": {
-        "showHeader": false,
+        "showHeader": true,
         "sortBy": [
           {
             "desc": true,
@@ -691,12 +886,22 @@
       "pluginVersion": "7.1.5",
       "targets": [
         {
-          "expr": "container_memory_rss/container_memory_max_usage_bytes>0.8",
+          "expr": "(sum(container_memory_rss{name!=\"\"}) by (name)/sum(container_spec_memory_limit_bytes{name!=\"\"}>0) by (name))>0.7",
           "format": "table",
+          "hide": false,
           "instant": true,
           "interval": "",
           "legendFormat": "",
           "refId": "A"
+        },
+        {
+          "expr": "container_memory_rss",
+          "format": "table",
+          "hide": true,
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "B"
         }
       ],
       "timeFrom": null,
@@ -765,10 +970,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 6,
         "w": 12,
         "x": 12,
-        "y": 12
+        "y": 14
       },
       "id": 17,
       "options": {
@@ -855,7 +1060,7 @@
         "h": 8,
         "w": 6,
         "x": 0,
-        "y": 16
+        "y": 20
       },
       "id": 6,
       "options": {
@@ -930,5 +1135,5 @@
   "timezone": "",
   "title": "Overall Awareness",
   "uid": "Y9Y369DGz",
-  "version": 34
+  "version": 41
 }
